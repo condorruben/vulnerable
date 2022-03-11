@@ -14,7 +14,7 @@ def index():
 
 @app.route("/calculate", methods=["POST"])
 def calculate():
-    if random.choices([True, False], weights=(20, 80))[0]:
+    if random.choices([True, False], weights=(100, 0))[0]:
         choice = random.choices(['abort', 'redirect', 'sleep', 'redirect_inf', 'exception'])[0]
         if choice == "abort":
             return abort(403)

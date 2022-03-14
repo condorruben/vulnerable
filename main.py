@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, abort, url_for
+from flask import Flask, render_template, redirect, abort, url_for, make_response
 from flask import request
 import os
 import sys
@@ -10,7 +10,9 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    r = make_response(render_template("index.html"))
+    r.headers["Server"] = "flask, nginx/1.18.0 (Ubuntu)"
+    return r
 
 @app.route("/calculate", methods=["POST"])
 def calculate():
@@ -31,7 +33,9 @@ def calculate():
 
     operation = request.form["operation"]
     result = eval(operation)
-    return render_template("index.html", result=str(result))
+    r = make_response(render_template("index.html", result=str(result)))
+    r.headers["Server"] = "flask, nginx/1.18.0 (Ubuntu)"
+    return r
 
 @app.route("/redirect_inf")
 def redirect_inf():
